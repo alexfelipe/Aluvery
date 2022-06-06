@@ -4,6 +4,9 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -24,6 +27,72 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview
+@Composable
+fun CustomLayoutPreview() {
+    AluveryTheme {
+        Surface {
+            Column {
+                Text("Texto A")
+                Text("Texto B")
+                Row {
+                    Text("Texto C")
+                    Text("Texto D")
+                }
+                Box {
+                    Row {
+                        Text("Texto E")
+                        Text("Texto F")
+                    }
+                    Row {
+                        Text("Texto G")
+                        Text("Texto H")
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun ColumnPreview() {
+    AluveryTheme {
+        Surface {
+            Column {
+                Text("Aluvery")
+                Text("Meu primeiro código com o Compose")
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun RowPreview() {
+    AluveryTheme {
+        Surface {
+            Row {
+                Text("Aluvery")
+                Text("Meu primeiro código com o Compose")
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun BoxPreview() {
+    AluveryTheme {
+        Surface {
+            Box {
+                Text("Aluvery")
+                Text("Meu primeiro código com o Compose")
+            }
+        }
+    }
+}
+
 @Preview(
     showBackground = true,
     showSystemUi = true,
@@ -32,7 +101,7 @@ class MainActivity : ComponentActivity() {
     uiMode = UI_MODE_NIGHT_YES
 )
 @Composable
-fun MyFirstComposable(){
+fun MyFirstComposable() {
     AluveryTheme {
         Surface {
             Text("Aluvery")
@@ -43,6 +112,6 @@ fun MyFirstComposable(){
 
 @Preview
 @Composable
-fun MyFirstComposablePreview(){
+fun MyFirstComposablePreview() {
     MyFirstComposable()
 }
