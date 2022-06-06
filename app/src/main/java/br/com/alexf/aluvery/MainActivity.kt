@@ -4,14 +4,16 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import br.com.alexf.aluvery.ui.theme.AluveryTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 Surface {
-                    MyFirstComposable()
+                    CustomLayoutPreview()
                 }
             }
         }
@@ -32,19 +34,50 @@ class MainActivity : ComponentActivity() {
 fun CustomLayoutPreview() {
     AluveryTheme {
         Surface {
-            Column {
-                Text("Texto A")
-                Text("Texto B")
-                Row {
-                    Text("Texto C")
+            Column(
+                Modifier
+                    .padding(8.dp)
+                    .background(Color.Red)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            ) {
+                Text(
+                    "Texto A"
+                )
+                Text(
+                    "Texto B"
+                )
+                Row(
+                    Modifier
+                        .padding(8.dp)
+                        .background(Color.Blue)
+                        .fillMaxWidth(0.8f)
+                        .fillMaxHeight(0.5f)
+                ) {
+                    Text(
+                        "Texto C",
+                    )
                     Text("Texto D")
                 }
-                Box {
-                    Row {
+                Box(
+                    Modifier
+                        .padding(8.dp)
+                        .background(Color.Green)
+                        .fillMaxSize(0.5f)
+                ) {
+                    Row(
+                        Modifier
+                            .padding(16.dp)
+                            .background(Color.Yellow)
+                    ) {
                         Text("Texto E")
                         Text("Texto F")
                     }
-                    Row {
+                    Row(
+                        Modifier
+                            .padding(8.dp)
+                            .background(Color.Gray)
+                    ) {
                         Text("Texto G")
                         Text("Texto H")
                     }
