@@ -4,9 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -14,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,7 +33,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 Surface {
-                    ProductItem()
+                    ProductSection()
                 }
             }
         }
@@ -39,48 +43,73 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 private fun ProductItem() {
-    Column(Modifier.width(200.dp)) {
-        val imageSize = 100.dp
-        Box(
-            Modifier
-                .heightIn(min = imageSize)
-                .fillMaxWidth()
-                .background(
-                    brush = Brush.horizontalGradient(listOf(Purple500, Teal200))
-                )
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = null,
-                Modifier
-                    .size(imageSize)
-                    .offset(y = imageSize / 2)
-                    .clip(CircleShape)
-                    .align(BottomCenter)
-            )
-        }
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(imageSize / 2)
-        )
+    Surface(
+        Modifier.padding(8.dp),
+        elevation = 4.dp,
+        shape = RoundedCornerShape(16.dp)
+    ) {
         Column(
             Modifier
-                .padding(8.dp)
-                .fillMaxWidth()
+                .width(200.dp)
         ) {
-            Text(
-                text = "Hamburguer",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
+            val imageSize = 100.dp
+            Box(
+                Modifier
+                    .heightIn(min = imageSize)
+                    .fillMaxWidth()
+                    .background(
+                        brush = Brush.horizontalGradient(listOf(Purple500, Teal200))
+                    )
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = null,
+                    Modifier
+                        .size(imageSize)
+                        .offset(y = imageSize / 2)
+                        .clip(CircleShape)
+                        .align(BottomCenter)
+                )
+            }
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(imageSize / 2)
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "R$ 14,99",
-                fontSize = 16.sp
-            )
+            Column(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = "Hamburguer",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "R$ 14,99",
+                    fontSize = 16.sp
+                )
+            }
         }
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun ProductSection() {
+    Column {
+        Text(
+            text = "Promoções",
+            Modifier.padding(8.dp),
+            fontSize = 20.sp
+        )
+        Row(Modifier.horizontalScroll(ScrollState(0))) {
+            ProductItem()
+            ProductItem()
+            ProductItem()
+        }
+    }
+}
 
