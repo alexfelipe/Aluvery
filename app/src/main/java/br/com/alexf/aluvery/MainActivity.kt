@@ -22,10 +22,13 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.alexf.aluvery.model.Product
 import br.com.alexf.aluvery.ui.theme.Purple500
 import br.com.alexf.aluvery.ui.theme.Teal200
+import java.math.BigDecimal
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +43,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-private fun ProductItem() {
+fun ProductItem(product: Product) {
     Surface(
         Modifier.padding(8.dp),
         elevation = 4.dp,
@@ -61,6 +63,7 @@ private fun ProductItem() {
                         brush = Brush.horizontalGradient(listOf(Purple500, Teal200))
                     )
             ) {
+                //TODO ajustar para carregar a imagem via URL
                 Image(
                     painter = painterResource(id = R.drawable.ic_launcher_background),
                     contentDescription = null,
@@ -82,18 +85,30 @@ private fun ProductItem() {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Hamburguer",
+                    text = product.name,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "R$ 14,99",
+                    text = product.price.toPlainString(),
                     fontSize = 16.sp
                 )
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ProductItemPreview() {
+    ProductItem(
+        Product(
+            name = "Hamburguer",
+            image = "",
+            price = BigDecimal("14.99")
+        )
+    )
 }
 
 @Preview(showBackground = true)
@@ -106,9 +121,27 @@ fun ProductSection() {
             fontSize = 20.sp
         )
         Row(Modifier.horizontalScroll(ScrollState(0))) {
-            ProductItem()
-            ProductItem()
-            ProductItem()
+            ProductItem(
+                Product(
+                    name = "Hamburguer",
+                    image = "",
+                    price = BigDecimal("14.99")
+                )
+            )
+            ProductItem(
+                Product(
+                    name = "Pizza",
+                    image = "",
+                    price = BigDecimal("18.99")
+                )
+            )
+            ProductItem(
+                Product(
+                    name = "Batata frita",
+                    image = "",
+                    price = BigDecimal("9.99")
+                )
+            )
         }
     }
 }
