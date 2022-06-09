@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import br.com.alexf.aluvery.model.Product
 import br.com.alexf.aluvery.ui.theme.Purple500
 import br.com.alexf.aluvery.ui.theme.Teal200
+import coil.compose.AsyncImage
 import java.math.BigDecimal
 
 class MainActivity : ComponentActivity() {
@@ -63,15 +65,18 @@ fun ProductItem(product: Product) {
                         brush = Brush.horizontalGradient(listOf(Purple500, Teal200))
                     )
             ) {
-                //TODO ajustar para carregar a imagem via URL
-                Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                AsyncImage(
+                    product.image,
                     contentDescription = null,
                     Modifier
                         .size(imageSize)
                         .offset(y = imageSize / 2)
                         .clip(CircleShape)
-                        .align(BottomCenter)
+                        .align(BottomCenter),
+                    placeholder = painterResource(
+                        id = R.drawable.placeholder
+                    ),
+                    contentScale = ContentScale.Crop
                 )
             }
             Spacer(
@@ -124,21 +129,21 @@ fun ProductSection() {
             ProductItem(
                 Product(
                     name = "Hamburguer",
-                    image = "",
+                    image = "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
                     price = BigDecimal("14.99")
                 )
             )
             ProductItem(
                 Product(
                     name = "Pizza",
-                    image = "",
+                    image = "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg",
                     price = BigDecimal("18.99")
                 )
             )
             ProductItem(
                 Product(
                     name = "Batata frita",
-                    image = "",
+                    image = "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg",
                     price = BigDecimal("9.99")
                 )
             )
