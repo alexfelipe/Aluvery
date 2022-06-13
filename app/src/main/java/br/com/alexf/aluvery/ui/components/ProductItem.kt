@@ -14,7 +14,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.alexf.aluvery.R
@@ -26,16 +28,18 @@ import coil.compose.AsyncImage
 import java.math.BigDecimal
 
 @Composable
-fun ProductItem(product: Product) {
+fun ProductItem(
+    product: Product,
+    modifier: Modifier = Modifier
+) {
     Surface(
-        Modifier.padding(8.dp),
+        modifier
+            .width(200.dp)
+            .height(250.dp),
         elevation = 4.dp,
         shape = RoundedCornerShape(16.dp)
     ) {
-        Column(
-            Modifier
-                .width(200.dp)
-        ) {
+        Column {
             val imageSize = 100.dp
             Box(
                 Modifier
@@ -66,18 +70,22 @@ fun ProductItem(product: Product) {
             )
             Column(
                 Modifier
-                    .padding(8.dp)
+                    .padding(16.dp)
                     .fillMaxWidth()
             ) {
                 Text(
                     text = product.name,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 2
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = product.price.toBrazilianCurrency(),
-                    fontSize = 16.sp
+                    fontSize = 14.sp,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
             }
         }
@@ -89,9 +97,10 @@ fun ProductItem(product: Product) {
 private fun ProductItemPreview() {
     ProductItem(
         Product(
-            name = "Hamburguer",
+            name = LoremIpsum(50).values.first(),
             image = "",
-            price = BigDecimal("14.99")
-        )
+            price = BigDecimal("14.99"),
+        ),
+        modifier = Modifier.padding(16.dp)
     )
 }

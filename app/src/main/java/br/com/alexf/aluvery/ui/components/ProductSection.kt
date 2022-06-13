@@ -1,6 +1,8 @@
 package br.com.alexf.aluvery.ui.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -17,18 +19,30 @@ import br.com.alexf.aluvery.sampledata.sampleProducts
 @Composable
 fun ProductSection(
     title: String,
-    products: List<Product>
+    products: List<Product>,
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(
+        horizontal = 16.dp,
+        vertical = 8.dp
+    )
 ) {
-    Column {
+    Column(modifier) {
         Text(
             text = title,
-            Modifier.padding(8.dp),
+            Modifier.padding(
+                contentPadding
+            ),
             fontSize = 20.sp
         )
         rememberScrollState()
-        LazyRow {
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = contentPadding,
+        ) {
             items(products) { product ->
-                ProductItem(product = product)
+                ProductItem(
+                    product = product
+                )
             }
         }
     }
