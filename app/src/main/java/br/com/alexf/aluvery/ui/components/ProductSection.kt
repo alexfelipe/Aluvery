@@ -1,10 +1,9 @@
 package br.com.alexf.aluvery.ui.components
 
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,9 +26,9 @@ fun ProductSection(
             fontSize = 20.sp
         )
         rememberScrollState()
-        Row(Modifier.horizontalScroll(ScrollState(0))) {
-            for (product in products) {
-                ProductItem(product)
+        LazyRow {
+            items(products) { product ->
+                ProductItem(product = product)
             }
         }
     }
@@ -40,4 +39,3 @@ fun ProductSection(
 private fun ProductSectionPreview() {
     ProductSection("Promoções", sampleProducts)
 }
-
